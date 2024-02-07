@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react";
-import { API_URL } from "../constants/constants";
-
-export default function SearchForm() {
-  const [search, setSearch] = useState("");
-  const [jobItems, setJobItems] = useState([]);
-  console.log(jobItems);
-
-  useEffect(() => {
-    if (!search) return;
-    async function getJobData() {
-      const response = await fetch(API_URL + `?search=${search}`);
-      const data = await response.json();
-      setJobItems(data.jobItems);
-    }
-    getJobData();
-  }, [search]);
-
+export default function SearchForm({
+  search,
+  setSearch,
+}: {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}) {
   return (
     <form onSubmit={(e) => e.preventDefault()} className="search">
       <button type="submit">
