@@ -6,6 +6,7 @@ export function JobList({ jobItems }) {
     <ul className="job-list">
       {jobItems.map((job: JobTitle) => (
         <JobListItem
+          key={job.id}
           badgeLetters={job.badgeLetters}
           title={job.title}
           company={job.company}
