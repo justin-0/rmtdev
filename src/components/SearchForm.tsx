@@ -1,10 +1,11 @@
-export default function SearchForm({
-  search,
-  setSearch,
-}: {
+import { useGetJobItems } from "../lib/hooks";
+
+type SearchFormProps = {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
-}) {
+};
+
+export default function SearchForm({ search, setSearch }: SearchFormProps) {
   return (
     <form onSubmit={(e) => e.preventDefault()} className="search">
       <button type="submit">

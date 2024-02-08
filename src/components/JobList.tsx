@@ -2,13 +2,11 @@ import { JobItem } from "../types/types";
 import JobListItem from "./JobListItem";
 import Spinner from "./Spinner";
 
-export function JobList({
-  jobItems,
-  isLoading,
-}: {
-  jobItems: JobItem[];
+type JobListProps = {
   isLoading: boolean;
-}) {
+  jobItems: JobItem[];
+};
+export function JobList({ isLoading, jobItems }: JobListProps) {
   return (
     <ul className="job-list">
       {isLoading ? (
