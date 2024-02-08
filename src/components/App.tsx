@@ -11,13 +11,26 @@ import ResultsCount from "./ResultsCount";
 import SortingControls from "./SortingControls";
 import JobList from "./JobList";
 import PaginationControls from "./PaginationControls";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetJobItems } from "../lib/hooks";
 
 function App() {
   const [search, setSearch] = useState("");
-  const [slicedJobItems, isLoading] = useGetJobItems(search);
+  const [jobItems, isLoading] = useGetJobItems(search);
+  const [activeJobId, setActiveJobId] = useState<string | null>(null);
+  console.log("active job id ", activeJobId);
+  // Run effect on mount to add event listener to window
+  useEffect(() => {
+    const handleHashChange = () => {
+      const id = window.location.hash.slice(1);
+      setActiveJobId(id);
+    };
+    handleHashChange();
 
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
   return (
     <>
       <Background />
@@ -34,7 +47,7 @@ function App() {
             <ResultsCount />
             <SortingControls />
           </SidebarTop>
-          <JobList isLoading={isLoading} jobItems={slicedJobItems} />
+          <JobList isLoading={isLoading} jobItems={jobItems} />
           <PaginationControls />
         </Sidebar>
         <JobItemContent />

@@ -19,6 +19,7 @@ export function JobList({ isLoading, jobItems }: JobListProps) {
             title={job.title}
             company={job.company}
             daysAgo={job.daysAgo}
+            id={job.id}
           />
         ))
       )}
