@@ -17,12 +17,12 @@ import { useGetJobItems } from "../lib/hooks";
 function App() {
   const [search, setSearch] = useState("");
   const [jobItems, isLoading] = useGetJobItems(search);
-  const [activeJobId, setActiveJobId] = useState<string | null>(null);
-  console.log("active job id ", activeJobId);
+  const [activeJobId, setActiveJobId] = useState<number | null>(null);
+
   // Run effect on mount to add event listener to window
   useEffect(() => {
     const handleHashChange = () => {
-      const id = window.location.hash.slice(1);
+      const id = +window.location.hash.slice(1);
       setActiveJobId(id);
     };
     handleHashChange();
@@ -31,6 +31,7 @@ function App() {
 
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
+
   return (
     <>
       <Background />
