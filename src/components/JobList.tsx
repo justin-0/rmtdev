@@ -1,4 +1,4 @@
-import { JobTitle } from "../types/types";
+import { JobItem } from "../types/types";
 import JobListItem from "./JobListItem";
 import Spinner from "./Spinner";
 
@@ -6,7 +6,7 @@ export function JobList({
   jobItems,
   isLoading,
 }: {
-  jobItems: JobTitle[];
+  jobItems: JobItem[];
   isLoading: boolean;
 }) {
   return (
@@ -14,7 +14,7 @@ export function JobList({
       {isLoading ? (
         <Spinner />
       ) : (
-        jobItems.map((job: JobTitle) => (
+        jobItems.map((job: JobItem) => (
           <JobListItem
             key={job.id}
             badgeLetters={job.badgeLetters}

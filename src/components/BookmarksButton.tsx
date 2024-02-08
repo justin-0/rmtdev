@@ -4,7 +4,7 @@ export default function BookmarksButton() {
   return (
     <section>
       <button className="bookmarks-btn">
-        Bookmarks <TriangleDownIcon />
+        Bookmarked <TriangleDownIcon />
       </button>
     </section>
   );
