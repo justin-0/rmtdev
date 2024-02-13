@@ -5,7 +5,7 @@ import { JobItem } from "../types/types";
 export function useGetJobItems(search: string) {
   const [jobItems, setJobItems] = useState<Array<JobItem>>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const slicedJobItems = jobItems.slice(0, 7)!;
+  const slicedJobItems = jobItems.slice(0, 7);
   useEffect(() => {
     if (!search) return;
     async function getJobData() {
