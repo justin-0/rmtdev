@@ -23,7 +23,6 @@ export function useGetJobItems(search: string) {
 
 export function useActiveJobId() {
   const [activeJobId, setActiveJobId] = useState<number | null>(null);
-
   // Run effect on mount to add event listener to window
   useEffect(() => {
     const handleHashChange = () => {
