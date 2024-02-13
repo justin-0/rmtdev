@@ -20,3 +20,24 @@ export function useGetJobItems(search: string) {
 
   return [slicedJobItems, isLoading] as const;
 }
+
+export function useActiveJobId() {
+  const [activeJobId, setActiveJobId] = useState<number | null>(null);
+
+  // Run effect on mount to add event listener to window
+  useEffect(() => {
+    const handleHashChange = () => {
+      // Convert string into number with unary
+      const id = +window.location.hash.slice(1);
+      setActiveJobId(id);
+    };
+    // Call func so id is set, if we don't do this then id will be null
+    handleHashChange();
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  return activeJobId;
+}

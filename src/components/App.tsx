@@ -12,25 +12,14 @@ import SortingControls from "./SortingControls";
 import JobList from "./JobList";
 import PaginationControls from "./PaginationControls";
 import { useEffect, useState } from "react";
-import { useGetJobItems } from "../lib/hooks";
+import { useActiveJobId, useGetJobItems } from "../lib/hooks";
 
 function App() {
   const [search, setSearch] = useState("");
   const [jobItems, isLoading] = useGetJobItems(search);
-  const [activeJobId, setActiveJobId] = useState<number | null>(null);
+  const activeId = useActiveJobId();
 
-  // Run effect on mount to add event listener to window
-  useEffect(() => {
-    const handleHashChange = () => {
-      const id = +window.location.hash.slice(1);
-      setActiveJobId(id);
-    };
-    handleHashChange();
-
-    window.addEventListener("hashchange", handleHashChange);
-
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
+  console.log(activeId, " current id");
 
   return (
     <>
