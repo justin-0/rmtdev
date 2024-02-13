@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "../constants/constants";
-import { JobItem } from "../types/types";
+import { JobData, JobItem } from "../types/types";
 
 export function useGetJobItems(search: string) {
   const [jobItems, setJobItems] = useState<Array<JobItem>>([]);
@@ -39,4 +39,25 @@ export function useActiveJobId() {
   }, []);
 
   return activeJobId;
+}
+
+export function useJobContent() {
+  const activeId = useActiveJobId();
+  const [jobContent, setJobContent] = useState<JobData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!activeId) return;
+
+    const getJobContent = async () => {
+      setIsLoading(true);
+      const resp = await fetch(`${API_URL}/${activeId}`);
+      const data = await resp.json();
+      setJobContent(data.jobItem);
+      setIsLoading(false);
+    };
+    getJobContent();
+  }, [activeId]);
+
+  return [jobContent, isLoading] as const;
 }

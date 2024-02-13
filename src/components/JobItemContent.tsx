@@ -1,30 +1,12 @@
-import { useEffect, useState } from "react";
-import { useActiveJobId } from "../lib/hooks";
+import { useJobContent } from "../lib/hooks";
 import BookmarkIcon from "./BookmarkIcon";
-import { JobData } from "../types/types";
-import { API_URL } from "../constants/constants";
 import Spinner from "./Spinner";
 
 export default function JobItemContent() {
-  const activeId = useActiveJobId();
-  const [jobContent, setJobContent] = useState<JobData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    if (!activeId) return;
-
-    const getJobContent = async () => {
-      setIsLoading(true);
-      const resp = await fetch(`${API_URL}/${activeId}`);
-      const data = await resp.json();
-      setJobContent(data.jobItem);
-      setIsLoading(false);
-    };
-    getJobContent();
-  }, [activeId]);
+  const [jobContent, isLoading] = useJobContent();
 
   console.log(jobContent);
 
-  // return <EmptyJobContent />;
   return (
     <section className="job-details">
       <div>
@@ -130,15 +112,11 @@ export default function JobItemContent() {
 
 function EmptyJobContent() {
   return (
-    // <section className="job-details">
-    // <div>
     <div className="job-details__start-view">
       <p>What are you looking for?</p>
       <p>
         Start by searching for any technology your ideal job is working with
       </p>
     </div>
-    // </div>
-    // </section>
   );
 }
