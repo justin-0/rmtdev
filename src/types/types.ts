@@ -5,6 +5,7 @@ export type JobItem = {
   company: string;
   daysAgo: number;
   relevanceScore: number;
+  active?: boolean;
 };
 
 export type JobData = {

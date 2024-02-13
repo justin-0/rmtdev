@@ -6,6 +6,8 @@ type JobListItemProps = {
   company: string;
   daysAgo: number;
   id: number;
+  active?: boolean;
+  onSetActive?: (id: number) => void;
 };
 
 export default function JobListItem({
