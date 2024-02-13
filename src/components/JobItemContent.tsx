@@ -1,16 +1,20 @@
-import { useJobContent } from "../lib/hooks";
+import { JobData } from "../types/types";
 import BookmarkIcon from "./BookmarkIcon";
 import Spinner from "./Spinner";
 
-export default function JobItemContent() {
-  const [jobContent, isLoading] = useJobContent();
+type JobItemContentProps = {
+  jobContent: JobData | null;
+  isLoaded: boolean;
+};
 
-  console.log(jobContent);
-
+export default function JobItemContent({
+  jobContent,
+  isLoaded,
+}: JobItemContentProps) {
   return (
     <section className="job-details">
       <div>
-        {isLoading ? (
+        {isLoaded ? (
           <Spinner />
         ) : jobContent !== null ? (
           <>
@@ -88,7 +92,11 @@ export default function JobItemContent() {
                 </div>
                 <ul className="reviews__list">
                   {jobContent.reviews.map((r) => {
-                    return <li className="reviews__item">{r}</li>;
+                    return (
+                      <li key={r} className="reviews__item">
+                        {r}
+                      </li>
+                    );
                   })}
                 </ul>
               </section>
