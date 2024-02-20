@@ -1,16 +1,15 @@
-import { JobData } from "../types/types";
+import { useJobContent } from "../lib/hooks";
+// import { JobData } from "../types/types";
 import BookmarkIcon from "./BookmarkIcon";
 import Spinner from "./Spinner";
 
-type JobItemContentProps = {
-  jobContent: JobData | null;
-  isLoaded: boolean;
-};
+// type JobItemContentProps = {
+//   jobContent: JobData | null;
+//   isLoaded: boolean;
+// };
 
-export default function JobItemContent({
-  jobContent,
-  isLoaded,
-}: JobItemContentProps) {
+export default function JobItemContent() {
+  const [jobContent, isLoaded] = useJobContent();
   return (
     <section className="job-details">
       <div>
@@ -82,7 +81,6 @@ export default function JobItemContent({
                   })}
                 </ul>
               </section>
-              s
               <section className="reviews">
                 <div className="reviews__left">
                   <h4 className="fourth-heading">Company reviews</h4>

@@ -7,7 +7,6 @@ type JobListItemProps = {
   daysAgo: number;
   id: number;
   active?: boolean;
-  onSetActive?: (id: number) => void;
 };
 
 export default function JobListItem({
@@ -16,9 +15,11 @@ export default function JobListItem({
   company,
   daysAgo,
   id,
+  active,
 }: JobListItemProps) {
+  const setActive = () => {};
   return (
-    <li className="job-item">
+    <li className={`job-item ${active ? "job-item--active" : ""}`}>
       <a className="job-item__link" href={`#${id}`}>
         <div className="job-item__badge">{badgeLetters}</div>
 
