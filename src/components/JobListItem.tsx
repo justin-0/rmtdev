@@ -17,7 +17,6 @@ export default function JobListItem({
   id,
   active,
 }: JobListItemProps) {
-  const setActive = () => {};
   return (
     <li className={`job-item ${active ? "job-item--active" : ""}`}>
       <a className="job-item__link" href={`#${id}`}>

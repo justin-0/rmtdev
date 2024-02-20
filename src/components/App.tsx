@@ -13,10 +13,12 @@ import JobList from "./JobList";
 import PaginationControls from "./PaginationControls";
 import { useState } from "react";
 import { useGetJobItems } from "../lib/hooks";
+import { useDebounceCallback } from "usehooks-ts";
 
 function App() {
   const [search, setSearch] = useState("");
-  const [jobItems, isLoading] = useGetJobItems(search);
+  const debouncedSearch = useDebounceCallback(setSearch);
+  const { slicedJobItems, isLoading, totalJobItems } = useGetJobItems(search);
 
   return (
     <>
@@ -26,15 +28,15 @@ function App() {
           <Logo />
           <BookmarksButton />
         </HeaderTop>
-        <SearchForm search={search} setSearch={setSearch} />
+        <SearchForm search={search} setSearch={debouncedSearch} />
       </Header>
       <Container>
         <Sidebar>
           <SidebarTop>
-            <ResultsCount />
+            <ResultsCount totalJobItems={totalJobItems} />
             <SortingControls />
           </SidebarTop>
-          <JobList isLoading={isLoading} jobItems={jobItems} />
+          <JobList isLoading={isLoading} jobItems={slicedJobItems} />
           <PaginationControls />
         </Sidebar>
         <JobItemContent />
