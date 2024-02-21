@@ -18,8 +18,10 @@ import { useDebounceCallback } from "usehooks-ts";
 function App() {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounceCallback(setSearch);
-  const { slicedJobItems, isLoading, totalJobItems } = useGetJobItems(search);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { jobItems, isLoading, totalJobItems } = useGetJobItems(search);
 
+  const slicedJobItems = jobItems.slice(0, 7);
   return (
     <>
       <Background />
@@ -37,7 +39,7 @@ function App() {
             <SortingControls />
           </SidebarTop>
           <JobList isLoading={isLoading} jobItems={slicedJobItems} />
-          <PaginationControls />
+          <PaginationControls setPage={setCurrentPage} current={currentPage} />
         </Sidebar>
         <JobItemContent />
       </Container>
