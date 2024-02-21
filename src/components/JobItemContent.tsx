@@ -4,18 +4,18 @@ import BookmarkIcon from "./BookmarkIcon";
 import Spinner from "./Spinner";
 
 // type JobItemContentProps = {
-//   jobContent: JobData | null;
+//   :data. JobData | null;
 //   isLoaded: boolean;
 // };
 
 export default function JobItemContent() {
-  const [jobContent, isLoaded] = useJobContent();
+  const { data, isLoading } = useJobContent();
   return (
     <section className="job-details">
       <div>
-        {isLoaded ? (
+        {isLoading ? (
           <Spinner />
-        ) : jobContent !== null ? (
+        ) : data !== null ? (
           <>
             <img
               src="https://images.unsplash.com/photo-1610374792793-f016b77ca51a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1272&q=100"
@@ -32,32 +32,30 @@ export default function JobItemContent() {
 
             <section className="job-info">
               <div className="job-info__left">
-                <div className="job-info__badge">{jobContent.badgeLetters}</div>
+                <div className="job-info__badge">{data.badgeLetters}</div>
                 <div className="job-info__below-badge">
-                  <time className="job-info__time">{jobContent.daysAgo}d</time>
+                  <time className="job-info__time">{data.daysAgo}d</time>
 
                   <BookmarkIcon />
                 </div>
               </div>
 
               <div className="job-info__right">
-                <h2 className="second-heading">{jobContent.title}</h2>
-                <p className="job-info__company">{jobContent.company}</p>
-                <p className="job-info__description">
-                  {jobContent.description}
-                </p>
+                <h2 className="second-heading">{data.title}</h2>
+                <p className="job-info__company">{data.company}</p>
+                <p className="job-info__description">{data.description}</p>
                 <div className="job-info__extras">
                   <p className="job-info__extra">
                     <i className="fa-solid fa-clock job-info__extra-icon"></i>
-                    {jobContent.duration}
+                    {data.duration}
                   </p>
                   <p className="job-info__extra">
                     <i className="fa-solid fa-money-bill job-info__extra-icon"></i>
-                    {jobContent.salary}
+                    {data.salary}
                   </p>
                   <p className="job-info__extra">
                     <i className="fa-solid fa-location-dot job-info__extra-icon"></i>{" "}
-                    {jobContent.location}
+                    {data.location}
                   </p>
                 </div>
               </div>
@@ -72,7 +70,7 @@ export default function JobItemContent() {
                   </p>
                 </div>
                 <ul className="qualifications__list">
-                  {jobContent.qualifications.map((q) => {
+                  {data.qualifications.map((q) => {
                     return (
                       <li key={q} className="qualifications__item">
                         {q}
@@ -89,7 +87,7 @@ export default function JobItemContent() {
                   </p>
                 </div>
                 <ul className="reviews__list">
-                  {jobContent.reviews.map((r) => {
+                  {data.reviews.map((r) => {
                     return (
                       <li key={r} className="reviews__item">
                         {r}

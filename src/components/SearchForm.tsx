@@ -1,5 +1,3 @@
-import { useGetJobItems } from "../lib/hooks";
-
 type SearchFormProps = {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
