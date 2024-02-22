@@ -24,7 +24,7 @@ export default function PaginationControls({
           icon={<ArrowLeftIcon />}
         />
       )}
-      {current === totalPages ? (
+      {current === totalPages || totalPages === 0 ? (
         <button></button>
       ) : (
         <PaginationButton
