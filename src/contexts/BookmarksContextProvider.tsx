@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type BookmarksContextProps = {
   handleToggleBookmark: (id: number) => void;
@@ -12,7 +12,21 @@ type BookmarksContextProviderProps = {
 const BookmarksContext = createContext<BookmarksContextProps | null>(null);
 
 function BookmarksContextProvider({ children }: BookmarksContextProviderProps) {
-  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
+  const bookmarksInLocalStorage = (): number[] => {
+    const storedBookmarks = localStorage.getItem("bookmarks");
+    if (storedBookmarks === null) return [];
+
+    const parsedBookmarks = JSON.parse(storedBookmarks);
+
+    return parsedBookmarks;
+  };
+
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(
+    bookmarksInLocalStorage() ? bookmarksInLocalStorage() : []
+  );
+
+  console.log(bookmarkedIds);
+
   const handleToggleBookmark = (id: number) => {
     if (bookmarkedIds.includes(id)) {
       setBookmarkedIds((b) => b.filter((bookmark) => bookmark !== id));
@@ -21,6 +35,9 @@ function BookmarksContextProvider({ children }: BookmarksContextProviderProps) {
     }
   };
 
+  useEffect(() => {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarkedIds));
+  }, [bookmarkedIds]);
   return (
     <BookmarksContext.Provider value={{ handleToggleBookmark, bookmarkedIds }}>
       {children}
