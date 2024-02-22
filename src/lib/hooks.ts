@@ -82,3 +82,16 @@ export function useJobContent() {
 //   );
 //   return { data: data.jobItem, isLoading: isInitialLoading };
 // }
+
+export function useGetLocalStorage() {
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(() =>
+    JSON.parse(localStorage.getItem("bookmarks") || "[]")
+  );
+
+  useEffect(() => {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarkedIds));
+  }, [bookmarkedIds]);
+  console.log(bookmarkedIds);
+
+  return { bookmarkedIds, setBookmarkedIds };
+}
