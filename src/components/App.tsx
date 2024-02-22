@@ -27,14 +27,11 @@ function App() {
   // Derived State
   const totalJobItems = jobItems.length;
   const totalPages = Math.ceil(totalJobItems / 7);
-  const sortedJobItems = jobItems?.sort((a, b) => {
+  const sortedJobItems = jobItems?.toSorted((a, b) => {
     if (sortBy === "relevant") {
       return b.relevanceScore - a.relevanceScore;
-    }
-    if (sortBy === "recent") {
-      return a.daysAgo - b.daysAgo;
-    }
-    return 0;
+    } else sortBy === "recent";
+    return a.daysAgo - b.daysAgo;
   });
 
   // Render Dervived State
@@ -44,7 +41,10 @@ function App() {
   );
 
   // Handlers / funcs
-  const handleSortBy = (newSort: SortedBy) => setSortBy(newSort);
+  const handleSortBy = (newSort: SortedBy) => {
+    setSortBy(newSort);
+    setCurrentPage(1);
+  };
 
   return (
     <>
