@@ -6,7 +6,6 @@ import { JobData, JobItem } from "../types/types";
 export function useGetJobItems(search: string) {
   const [jobItems, setJobItems] = useState<Array<JobItem>>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const totalJobItems = jobItems.length;
   useEffect(() => {
     if (!search) return;
     async function getJobData() {
@@ -19,7 +18,7 @@ export function useGetJobItems(search: string) {
     getJobData();
   }, [search]);
 
-  return { isLoading, totalJobItems, jobItems };
+  return { isLoading, jobItems };
 }
 
 export function useActiveJobId() {

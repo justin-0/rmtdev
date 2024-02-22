@@ -19,9 +19,14 @@ function App() {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounceCallback(setSearch);
   const [currentPage, setCurrentPage] = useState(1);
-  const { jobItems, isLoading, totalJobItems } = useGetJobItems(search);
+  const { jobItems, isLoading } = useGetJobItems(search);
 
-  const slicedJobItems = jobItems.slice(0, 7);
+  // Derived State
+  const totalJobItems = jobItems.length;
+  const totalPages = Math.ceil(totalJobItems / 7);
+
+  // Render Dervived State
+  const slicedJobItems = jobItems.slice(currentPage * 7 - 7, currentPage * 7);
   return (
     <>
       <Background />
@@ -39,7 +44,11 @@ function App() {
             <SortingControls />
           </SidebarTop>
           <JobList isLoading={isLoading} jobItems={slicedJobItems} />
-          <PaginationControls setPage={setCurrentPage} current={currentPage} />
+          <PaginationControls
+            setPage={setCurrentPage}
+            current={currentPage}
+            totalPages={totalPages}
+          />
         </Sidebar>
         <JobItemContent />
       </Container>
