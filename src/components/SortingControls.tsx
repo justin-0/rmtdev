@@ -1,9 +1,11 @@
 export default function SortingControls({
   onClick,
   sortBy,
+  totalJobItems,
 }: {
   onClick: (newSort: "relevant" | "recent") => void;
   sortBy: string;
+  totalJobItems: number;
 }) {
   return (
     <section className="sorting">
@@ -11,7 +13,9 @@ export default function SortingControls({
 
       <button
         className={`sorting__button sorting__button--relevant ${
-          sortBy === "relevant" ? "sorting__button--active" : ""
+          sortBy === "relevant" && totalJobItems > 0
+            ? "sorting__button--active"
+            : ""
         }`}
         onClick={() => onClick("relevant")}
       >

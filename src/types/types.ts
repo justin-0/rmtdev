@@ -24,3 +24,5 @@ export type JobData = {
   coverImgURL: string;
   companyURL: string;
 };
+
+export type SortedBy = "relevant" | "recent";
