@@ -8,6 +8,7 @@ export default function BookmarkIcon({ id }: { id: number }) {
     <button
       className="bookmark-btn"
       onClick={(e) => {
+        e.preventDefault();
         e.stopPropagation();
         handleToggleBookmark(id);
       }}

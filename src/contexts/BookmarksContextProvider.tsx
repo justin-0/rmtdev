@@ -13,7 +13,6 @@ const BookmarksContext = createContext<BookmarksContextProps | null>(null);
 
 function BookmarksContextProvider({ children }: BookmarksContextProviderProps) {
   const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
-  console.log("Bookmark Ids", bookmarkedIds);
   const handleToggleBookmark = (id: number) => {
     if (bookmarkedIds.includes(id)) {
       setBookmarkedIds((b) => b.filter((bookmark) => bookmark !== id));
