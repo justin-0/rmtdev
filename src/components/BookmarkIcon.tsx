@@ -1,9 +1,20 @@
 import { BookmarkFilledIcon } from "@radix-ui/react-icons";
+import { useBookmarksContext } from "../contexts/BookmarksContextProvider";
 
-export default function BookmarkIcon() {
+export default function BookmarkIcon({ id }: { id: number }) {
+  const { handleToggleBookmark, bookmarkedIds } = useBookmarksContext();
+
   return (
-    <button className="bookmark-btn">
-      <BookmarkFilledIcon className="filled" />
+    <button
+      className="bookmark-btn"
+      onClick={(e) => {
+        e.stopPropagation();
+        handleToggleBookmark(id);
+      }}
+    >
+      <BookmarkFilledIcon
+        className={`${bookmarkedIds.includes(id) ? "filled" : ""}`}
+      />
     </button>
   );
 }
