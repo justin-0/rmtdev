@@ -10,8 +10,6 @@ export default function PaginationControls({
   setPage: React.Dispatch<React.SetStateAction<number>>;
   totalPages: number;
 }) {
-  console.log(`current page is ${current}`);
-  console.log(`Total page is ${totalPages}`);
   return (
     <section className="pagination">
       {current === 1 ? (
