@@ -1,4 +1,5 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import PaginationButton from "./PaginationButton";
 
 export default function PaginationControls({
   current,
@@ -12,21 +13,20 @@ export default function PaginationControls({
       {current === 1 ? (
         <button></button>
       ) : (
-        <button
-          className="pagination__button"
-          onClick={() => setPage((p) => p - 1)}
-        >
-          <ArrowLeftIcon /> Page {`${current}`}
-        </button>
+        <PaginationButton
+          current={current}
+          setPage={setPage}
+          direction="left"
+          icon={<ArrowLeftIcon />}
+        />
       )}
 
-      <button
-        className="pagination__button"
-        onClick={() => setPage((p) => p + 1)}
-      >
-        Page {`${current + 1}`}
-        <ArrowRightIcon />{" "}
-      </button>
+      <PaginationButton
+        current={current}
+        setPage={setPage}
+        direction="right"
+        icon={<ArrowRightIcon />}
+      />
     </section>
   );
 }
